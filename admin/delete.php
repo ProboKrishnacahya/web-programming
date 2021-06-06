@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <h1>DELETE ARTIKEL DATA</h1>
+    <h1>DELETE ARTICLE</h1>
     <?php
     $data_to_be_deleted = $_GET["deleteID"];
     $resultDelete = deleteArtikel($data_to_be_deleted, $img1);
