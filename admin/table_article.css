@@ -108,14 +108,17 @@ summary {
 
 /* MOBILE VIEW */
 @media only screen and (device-width: 414px) and (device-height: 736px) {
-    table {
-        text-align: left;
-        margin: 3.5vh;
-    }
-
     img {
         display: flex;
         max-width: 100%;
         max-height: 200px;
+    }
+    .readAdmin {
+        margin-right: -35vh;
+        padding-left: 1%;
+    }
+
+    h1{
+        padding-left: 60%;
     }
 }
