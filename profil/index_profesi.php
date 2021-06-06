@@ -1,4 +1,4 @@
-<?php include_once("profesi_controller.php"); ?>
+<?php include_once("profesi_controller.php");?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PartnerSeeker</title>
-    <link rel="stylesheet" href="index_profesi.css" />
+    <link rel="stylesheet" href="index_profesi.css"/>
+    <link rel="stylesheet" href="layout.css"/>
     <link rel="icon" href="favicon.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600&display=swap" rel="stylesheet">
@@ -16,6 +17,23 @@
 </head>
 
 <body>
+
+    <?php
+    if (isset($_POST["update_submit"])) {
+        // penyimpanan data yang dikirim melalui form
+        $id = $_POST["update_id"];
+        $bidang_profesi = $_POST["update_bidang_profesi"];
+        $nama_lengkap = $_POST["update_nama_lengkap"];
+        $tempat_tgllahir = $_POST["update_tempat_tgllahir"];
+        $domisili = $_POST["update_domisili"];
+        $email = $_POST["update_email"];
+        $gambar_profile = $_FILES['gambar_profile']['name'];
+        $loc1 = $_FILES['gambar_profile']['tmp_name'];
+        move_uploaded_file($loc1, "gambar/" . $gambar_profile);
+
+        $result = updatePortofolio($id, $bidang_profesi, $nama_lengkap, $tempat_tgllahir, $domisili, $email, $gambar_profile);
+    }
+    ?>
 
     <div class="container">
         <nav class="menu">
@@ -36,14 +54,14 @@
         ?>
 
             <div class="profile">
-                <img class="profile_picture" src="https://cdn.pixabay.com/photo/2012/04/13/21/07/user-33638_640.png" />
+                <img class="profile_picture" src="gambar/<?= $barisdata["gambar_profile"] ?>" />
                 <h4 class="kategori"><?= $barisdata["bidang_profesi"] ?></h4>
                 <li><i class="fa fa-user"></i><?= $barisdata["nama_lengkap"] ?></li>
                 <li><i class="fa fa-calendar-alt"></i><?= $barisdata["tempat_tanggal_lahir"] ?></li>
                 <li><i class="fa fa-map-marker-alt"></i><?= $barisdata["domisili"] ?></li>
                 <li><i class="fa fa-envelope"></i><?= $barisdata["email"] ?></li>
                 <hr>
-                <a class="lihat" href="index_portofolio.php">
+                <a class="lihat" href="index_portofolio.php ">
                     <h3>Lihat Portofolio</h3>
                 </a>
                 <?php
@@ -54,7 +72,6 @@
                 <?php
                 }
                 ?>
-
             </div>
 
         <?php

@@ -86,19 +86,3 @@ hr {
     text-decoration: none;
     color: #0000CD;
 }
-
-/* MOBILE VIEW */
-@media only screen and (device-width: 414px) and (device-height: 736px) {
-    .profile {
-        width: 80%;
-        margin: 5vh 2vh 3vh 2vh;
-    }
-
-    .profile:hover {
-        transform: none;
-    }
-
-    .kategori {
-        margin: 0vh 0vh 5vh 0.75vh;
-    }
-}
