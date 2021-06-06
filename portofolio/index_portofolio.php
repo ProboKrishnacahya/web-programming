@@ -55,9 +55,14 @@
     }
     ?>
 
+    <?php
+    if(isset($_GET['userId']))
+    {
+        $userId = $_GET['userId'];
+    ?>
     <table border="1" cellspacing="0" cellpadding="10">
         <?php
-        $result = readPortofolio();
+        $result = readPortofolio($userId);
         $angka = 1;
         foreach ($result as $barisdata) {
         ?>
@@ -81,6 +86,9 @@
         }
         ?>
     </table>
+    <?php
+    }
+    ?>
 
 </body>
 

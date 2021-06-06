@@ -1,25 +1,18 @@
 <?php
-require_once("db_controller.php");
+require_once("../db_controller.php");
 
 include('login_check_freelancer.php');
 
 // function to read database data
-function readPortofolio()
+function readPortofolio($userId)
 {
     $allData = array();
     $conn = my_connectDB();
 
     if ($conn != NULL) {
 
-        // cek apakah user sudah login
-        if (isset($_SESSION['user_id'])) {
-            // jika sudah login maka tampilkan portofolio sesuai usernya
-            $id = $_SESSION['user_id'];
-            $sql_query = "SELECT * FROM `portofolio` WHERE `user_id` = $id";
-        } else {
-            // jika belum login maka tampilkan semua portofolio
-            $sql_query = "SELECT * FROM `portofolio`";
-        }
+        // ambil data portofolio yang sesuai dengan usernya
+        $sql_query = "SELECT * FROM `portofolio` WHERE `user_id` = $userId";
 
         $result = mysqli_query($conn, $sql_query) or die(mysqli_error($conn));
 

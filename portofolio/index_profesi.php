@@ -61,7 +61,7 @@
                 <li><i class="fa fa-map-marker-alt"></i><?= $barisdata["domisili"] ?></li>
                 <li><i class="fa fa-envelope"></i><?= $barisdata["email"] ?></li>
                 <hr>
-                <a class="lihat" href="index_portofolio.php ">
+                <a class="lihat" href="index_portofolio.php?userId=<?php echo $barisdata["user_id"]; ?>">
                     <h3>Lihat Portofolio</h3>
                 </a>
                 <?php

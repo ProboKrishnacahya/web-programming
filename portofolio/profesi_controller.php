@@ -1,5 +1,5 @@
 <?php
-require_once("db_controller.php");
+require_once("../db_controller.php");
 
 include('login_check_freelancer.php');
 
@@ -33,6 +33,7 @@ function readProfesi()
                 $data['domisili'] = $row["domisili"];
                 $data['email'] = $row["email"];
                 $data['gambar_profile'] = $row["gambar_profile"];
+                $data['user_id'] = $row["user_id"];
                 array_push($allData, $data);
             }
         }
