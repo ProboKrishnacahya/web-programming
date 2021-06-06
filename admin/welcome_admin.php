@@ -26,6 +26,9 @@ if (!isset($_SESSION['username'])) {
 </head>
 
 <body>
+
+<button class="create"><a class="indexText" href="index.php"><b>CRUD ARTICLE</b></a></button><hr>
+
 	<table>
 		<?php
 		$result = readArtikel();
