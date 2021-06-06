@@ -32,17 +32,26 @@ if (!isset($_SESSION['username'])) {
 
     <?php
 
-    if (isset($_POST["input_submit"])) {
-        // $gambar_cover = $_POST["input_gambar_cover"];
-        $judul = $_POST["input_judul"];
-        $isi = $_POST["input_isi"];
+        if (isset($_POST["input_submit"])) {
+            // $gambar_cover = $_POST["input_gambar_cover"];
+            $judul = $_POST["input_judul"];
+            $isi = $_POST["input_isi"];
 
-        $img1 = $_FILES['input_gambar_cover']['name'];
-        $loc1 = $_FILES['input_gambar_cover']['tmp_name'];
-        move_uploaded_file($loc1, "gambar/" . $img1);
+            $img1 = $_FILES['input_gambar_cover']['name'];
+            $loc1 = $_FILES['input_gambar_cover']['tmp_name'];
 
-        createArtikel($judul, $isi, $img1);
-    }
+            // cek apakah folder gambar sudah dibuat
+            if (!file_exists('gambar')) {
+                // folder gambar belum ada, mari kita buat foldernya
+                mkdir('gambar', 0777, true);
+            }
+
+            // upload file ke server
+            move_uploaded_file($loc1, 'gambar/'.$img1);
+
+            // memasukkan data ke database
+            createArtikel($judul, $isi, $img1);
+        }
     ?>
 </body>
 
