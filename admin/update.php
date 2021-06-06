@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="admin_article.css" />
     <link rel="stylesheet" href="index_login_admin.css" />
     <link rel="icon" href="favicon.png" type="image/png" />
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
     <title>Update Data</title>
 </head>
 
@@ -35,10 +35,8 @@
         </form>
 
         <?php
-    }
-    else
-    {
-        echo '<span style="margin-top: 50%;">Anda harus memilih artikel yang ingin diupdate terlebih dahulu, <a href="index.php" style="color: #000; font-weight: bold; text-decoration: underline;">klik disini</a> untuk kembali ke halaman list artikel</span>';
+    } else {
+        echo '<span>Anda harus memilih artikel yang ingin diupdate terlebih dahulu, <a href="index.php">Klik disini</a> untuk kembali ke halaman CRUD data artikel</span>';
     }
 
     if (isset($_POST["update_admin_submit"])) {
@@ -49,25 +47,18 @@
         $img1 = $_FILES['update_gambar_cover']['name'];
         $loc1 = $_FILES['update_gambar_cover']['tmp_name'];
 
-        // mengambil informasi file yang diupload
         $pathInfo = pathinfo($_FILES["update_gambar_cover"]["name"]);
-        
-        // modifikasi nama file supaya bersifat unique
-        $image_name = $pathInfo['filename'].'_'.time().'.'.$pathInfo['extension'];
 
-        // modifikasi path file
-        $image_path = 'gambar/'.$image_name;
+        $image_name = $pathInfo['filename'] . '_' . time() . '.' . $pathInfo['extension'];
 
-        // cek apakah data file lama masih ada
-        if (file_exists('gambar/'.$data['img1'])) {
-            // jika ada maka hapus file yang lama
-            unlink('gambar/'.$data['img1']);
+        $image_path = 'gambar/' . $image_name;
+
+        if (file_exists('gambar/' . $data['img1'])) {
+            unlink('gambar/' . $data['img1']);
         }
 
-        // upload file ke server
         move_uploaded_file($loc1, $image_path);
 
-        // memasukkan data ke database
         $result = updateArtikel($id, $image_name, $judul, $isi);
 
         if ($result == 1) {
