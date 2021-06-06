@@ -26,39 +26,54 @@
         <br>
         <h1>UPDATE ARTICLE WITH ID <?= $data_to_be_updated ?></h1>
 
-        <form action="update.php" method="POST">
+        <form action="update.php?updateID=<?php echo $_GET["updateID"] ?>" method="POST" enctype="multipart/form-data">
             <p class="update.p">ID: <input type="text" name="update_id" value="<?= $data['id'] ?>" readonly /></p>
-            <p class="update.p">Gambar Cover: <input type="file" name="update_img1" value="<?= $data['img1'] ?>" /></p>
+            <p class="update.p">Gambar Cover: <input type="file" name="update_gambar_cover" /></p>
             <p class="update.p">Judul: <input type="text" name="update_judul" value="<?= $data['judul'] ?>" /></p>
-            <p class="update.p">Isi: <textarea name="update_isi" rows="15" cols="90" required></textarea></p>
+            <p class="update.p">Isi: <textarea name="update_isi" rows="15" cols="90" required><?= $data['isi'] ?></textarea></p>
             <p class="update.p"><input type="submit" name="update_admin_submit" required /></p>
         </form>
 
         <?php
     }
+    else
+    {
+        echo '<span style="margin-top: 50%;">Anda harus memilih artikel yang ingin diupdate terlebih dahulu, <a href="index.php" style="color: #000; font-weight: bold; text-decoration: underline;">klik disini</a> untuk kembali ke halaman list artikel</span>';
+    }
 
-        if (isset($_POST["update_admin_submit"])) {
-            // $gambar_cover = $_POST["input_gambar_cover"];
-            $id = $_POST["update_id"];
-            $judul = $_POST["update_judul"];
-            $isi = $_POST["update_isi"];    
+    if (isset($_POST["update_admin_submit"])) {
+        $id = $_POST["update_id"];
+        $judul = $_POST["update_judul"];
+        $isi = $_POST["update_isi"];
 
-            $img1 = $_FILES['update_img1']['name'];
-            $loc1 = $_FILES['update_img1']['tmp_name'];
+        $img1 = $_FILES['update_gambar_cover']['name'];
+        $loc1 = $_FILES['update_gambar_cover']['tmp_name'];
 
-            if (!file_exists('gambar')) {
-                mkdir('gambar', 0777, true);
-            }
+        // mengambil informasi file yang diupload
+        $pathInfo = pathinfo($_FILES["update_gambar_cover"]["name"]);
+        
+        // modifikasi nama file supaya bersifat unique
+        $image_name = $pathInfo['filename'].'_'.time().'.'.$pathInfo['extension'];
 
-            move_uploaded_file($loc1, 'gambar/' . $img1);
+        // modifikasi path file
+        $image_path = 'gambar/'.$image_name;
 
-            $result = updateArtikel($id, $img1, $judul, $isi);
+        // cek apakah data file lama masih ada
+        if (file_exists('gambar/'.$data['img1'])) {
+            // jika ada maka hapus file yang lama
+            unlink('gambar/'.$data['img1']);
         }
+
+        // upload file ke server
+        move_uploaded_file($loc1, $image_path);
+
+        // memasukkan data ke database
+        $result = updateArtikel($id, $image_name, $judul, $isi);
 
         if ($result == 1) {
         ?>
             <h1>UPDATE ARTIKEL DATA with ID <?= $id ?> SUCCESS</h1>
-            <p>Gambar Cover : <?= $img1 ?></p>
+            <p>Gambar Cover : <img src="<?= $image_path ?>" alt=""></p>
             <p>Judul : <?= $judul ?></p>
             <p>Isi : <?= $isi ?></p>
     <?php
