@@ -40,6 +40,10 @@ if (!isset($_SESSION['username'])) {
             $img1 = $_FILES['input_gambar_cover']['name'];
             $loc1 = $_FILES['input_gambar_cover']['tmp_name'];
 
+            $pathInfo = pathinfo($_FILES["input_gambar_cover"]["name"]);
+            $image_name = $pathInfo['filename'].'_'.time().'.'.$pathInfo['extension'];
+            $image_path = 'gambar/'.$image_name;
+
             // cek apakah folder gambar sudah dibuat
             if (!file_exists('gambar')) {
                 // folder gambar belum ada, mari kita buat foldernya
@@ -47,10 +51,10 @@ if (!isset($_SESSION['username'])) {
             }
 
             // upload file ke server
-            move_uploaded_file($loc1, 'gambar/'.$img1);
+            move_uploaded_file($loc1, $image_path);
 
             // memasukkan data ke database
-            createArtikel($judul, $isi, $img1);
+            createArtikel($judul, $isi, $image_name);
         }
     ?>
 </body>
