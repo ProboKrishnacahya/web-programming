@@ -18,17 +18,16 @@ if (!isset($_SESSION['username'])) {
     <link rel="stylesheet" href="admin_article.css" />
     <link rel="stylesheet" href="index_login_admin.css" />
     <link rel="icon" href="favicon.png" type="image/png" />
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
     <title>Read Data</title>
 </head>
 
 <body>
 
-    <button class="logout"><a class="logoutText" href="logout_admin.php">Logout</a></button>
-    <button class="create"><a class="indexText" href="create.php"><b>Create</b></a></button>
-    <br>
+    <br><button class="logout"><a class="logoutText" href="logout_admin.php">Logout</a></button>
+    <button class="create"><a class="indexText" href="create.php"><b>Create</b></a></button><br><br>
     <h1>CRUD All Article Data</h1>
 
     <table class="readAdmin">
@@ -50,8 +49,8 @@ if (!isset($_SESSION['username'])) {
                 <td class="td_readAdmin"><img class="image" src="gambar/<?= $barisdata["img1"] ?>" /></td>
                 <td class="td_readAdmin"><?= $barisdata["judul"] ?></td>
                 <td class="paragraf"><?= $barisdata["isi"] ?></td>
-                <td class="update"><a href="update.php?updateID=<?= $barisdata['id'] ?>">Update</a></td>
-                <td class="delete"><a href="delete.php?deleteID=<?= $barisdata['id'] ?>">Delete</a></td>
+                <td class="update"><a href="update.php?updateID=<?= $barisdata['id'] ?>"><b>Update</b></a></td>
+                <td class="delete"><a href="delete.php?deleteID=<?= $barisdata['id'] ?>"><b>Delete</b></a></td>
             </tr>
         <?php
         }
